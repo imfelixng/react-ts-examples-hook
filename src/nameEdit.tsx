@@ -2,31 +2,24 @@ import * as React from "react";
 
 type Props = {
   initialUserName: string;
-  onNameUpdated: (newName: string) => any;
+  editingName: string;
+  onNameUpdated: () => any;
+  onEditingNameUpdated: (newEditingName: string) => any;
 }
 
 export const NameEditComponent = (props: Props) => {
-  const [editingName, setEditingName] = React.useState(props.initialUserName);
-  const [lastInitialName, setLastInitialName] = React.useState(props.initialUserName);
-
   const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    setEditingName(e.target.value);
+    props.onEditingNameUpdated(e.target.value);
   }
       
   const onNameSubmit = (event: any): any => {
-    props.onNameUpdated(editingName);
-  }
-
-  // implement getderivedstatefromprops with hooks
-  if(props.initialUserName !== lastInitialName) {
-     setLastInitialName(props.initialUserName);
-     setEditingName(props.initialUserName);
+    props.onNameUpdated();
   }
 
   return (
     <>
       <label>Update name:</label>
-      <input value={editingName} onChange={onChange} />
+      <input value={props.editingName} onChange={onChange} />
       <button onClick={onNameSubmit}>Change</button>
     </>
   )
