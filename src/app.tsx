@@ -8,6 +8,10 @@ import {
   MemberTableComponent
 } from './components';
 
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import { LoginPage } from "./pages/loginPage";
+import { PageB } from './pages/pageB';
+
 import {Color} from './model/color';
 
 export const App = () => {
@@ -34,7 +38,7 @@ export const App = () => {
 
   return (
     <>
-        <SidebarComponent isVisible={isVisible}>
+        {/* <SidebarComponent isVisible={isVisible}>
           <h1>Cool Scfi movies</h1>
             <ul>
               <li><a href="https://www.imdb.com/title/tt0816692/">Interstellar</a></li>
@@ -58,7 +62,13 @@ export const App = () => {
             onClick={() => setVisible(!isVisible)}>
             Toggle Sidebar
           </button>
-        </div>
+        </div> */}
+        <HashRouter>
+          <Switch>
+            <Route exact={true} path="/" component={LoginPage} />
+            <Route path="/pageB" component={PageB} />
+          </Switch>
+        </HashRouter>
     </>
   )
 };
