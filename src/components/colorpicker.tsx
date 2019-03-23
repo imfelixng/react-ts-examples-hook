@@ -6,52 +6,43 @@ type Props = {
   onColorUpdated: (color: Color) => void;
 };
 
+
+type PropsColorSlider = {
+  value: number;
+  onValueUpdated: (newValue: number) => void;
+  key: string;
+}
+
+const ColorSliderComponent = (props: PropsColorSlider) => {
+  return (
+    <div>
+      <input
+        type="range"
+        min="0"
+        max="255"
+        value={props.value}
+        onChange={event => props.onValueUpdated(+event.target.value)}
+      />
+      {props.value}
+    </div>
+  );
+};
+
+const updateColor = (props : Props, colorId : keyof Color) => (value) => {  // keyof Color ensures only 'red', 'blue' or 'green' can be passed in.
+   props.onColorUpdated({
+     ...props.color,   // this creates a clone of the current props.color object...
+     [colorId]: value  // ... which gets one of its properties (colorId) immediately replaced by a new value.
+   });
+};
+
 export const ColorPicker = (props: Props) => (
-  <div>
-    <input
-      type="range"
-      min="0"
-      max="255"
-      value={props.color.red}
-      onChange={event =>
-        props.onColorUpdated({
-          red: +event.target.value,
-          green: props.color.green,
-          blue: props.color.blue
-        })
-      }
-    />
-    {props.color.red}
-    <br />
-    <input
-      type="range"
-      min="0"
-      max="255"
-      value={props.color.green}
-      onChange={(event: any) =>
-        props.onColorUpdated({
-          red: props.color.red,
-          green: +event.target.value,
-          blue: props.color.blue
-        })
-      }
-    />
-    {props.color.green}
-    <br />
-    <input
-      type="range"
-      min="0"
-      max="255"
-      value={props.color.blue}
-      onChange={(event: any) =>
-        props.onColorUpdated({
-          red: props.color.red,
-          green: props.color.green,
-          blue: +event.target.value
-        })
-      }
-    />
-    {props.color.blue}
-    <br />
-  </div>
+  <>
+    {Object.keys(props.color).map((field: keyof Color) => (
+      <ColorSliderComponent
+        key={field}
+        value={props.color[field]}
+        onValueUpdated={updateColor(props, field)}
+      />
+    ))}
+  </>
 );
