@@ -5,7 +5,6 @@ import { NameEditComponent } from "./nameEdit";
 export const App = () => {
   const [name, setName] = React.useState('defaultUserName');
   const [editingName, setEditingName] = React.useState("defaultUserName");
-  
   const loadUsername = () => {
     setTimeout(() => {
       setName("name from async call");
@@ -30,6 +29,7 @@ export const App = () => {
           editingName={editingName}
           onNameUpdated={setUsernameState}
           onEditingNameUpdated={setEditingName}
+          disabled={editingName === '' || name === editingName}
         />
     </>
   )
