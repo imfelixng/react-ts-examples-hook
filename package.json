@@ -16,6 +16,7 @@
     "@babel/core": "^7.4.0",
     "@babel/polyfill": "^7.4.0",
     "@babel/preset-env": "^7.4.1",
+    "@types/node": "^11.11.6",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",

@@ -10,10 +10,9 @@ type Props = {
 type PropsColorSlider = {
   value: number;
   onValueUpdated: (newValue: number) => void;
-  key: string;
 }
 
-const ColorSliderComponent = (props: PropsColorSlider) => {
+const ColorSliderComponent: React.FC<PropsColorSlider> = (props) => {
   return (
     <div>
       <input
